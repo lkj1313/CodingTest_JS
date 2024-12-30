@@ -1,5 +1,6 @@
 function solution(arr) {
-   
-    var answer =  arr.reduce((a,b)=>a+b,0)/arr.length
+
+    let sum = arr.reduce((a,c)=>a+c,0)
+    let answer = sum/arr.length
     return answer;
 }
