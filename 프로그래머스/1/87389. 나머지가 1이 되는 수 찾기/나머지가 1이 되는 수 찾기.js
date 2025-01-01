@@ -1,10 +1,12 @@
 function solution(n) {
-    let array = []
-    for(let x=1; x<=n; x++){
-        if(n%x===1){
-            array.push(x)
+    var answer = 0;
+    let xCollection = []
+    for(let i=1; i<=n; i++){
+        if(n%i===1){
+            xCollection.push(i)
         }
     }
- 
-    return array[0];
+    let xCollectionOrganize = xCollection.sort((a,b)=>a-b)
+    answer =xCollectionOrganize[0]
+    return answer;
 }
