@@ -1,8 +1,8 @@
-function solution(x, n) { //정수n 자연수n
+function solution(x, n) {
     var answer = [];
     
-    for(let i=1; i<=n; i++){
-        answer.push(x*i)
+    for(let i = 0; i<n   ;i++){
+        answer.push(x+x*i)
     }
     return answer;
 }
