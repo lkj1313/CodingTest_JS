@@ -1,3 +1,7 @@
 function solution(s) {
-    return s.split('').sort((a, b) => b.charCodeAt(0) - a.charCodeAt(0)).join('');
+    var answer = '';
+    const arrayed = s.split('')
+    answer = arrayed.sort().reverse().join('')
+    
+    return answer;
 }
