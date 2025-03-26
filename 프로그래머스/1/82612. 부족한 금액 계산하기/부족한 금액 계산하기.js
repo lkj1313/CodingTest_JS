@@ -1,16 +1,13 @@
 function solution(price, money, count) {
-    var rest = money;
-    var answer = 0;
-    for(let i=1; i<=count; i++){
-        비용 = price*i
-        rest-= 비용
-        
+    var answer = -1;
+    let sum = 0;
+    for(let i = 1; i<=count; i++){
+        sum+=price*i
     }
-    if(rest>=0){
-        answer =0
+    if(money-sum>=0){
+        answer = 0
     } else{
-        answer = -rest
+        answer = sum-money
     }
-
     return answer;
 }
