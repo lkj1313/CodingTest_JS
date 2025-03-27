@@ -1,11 +1,12 @@
 function solution(t, p) {
-    
-    let count = 0;
-    for(let i=0; i<=t.length-p.length; i++){
-        const subStr = t.substr(i,p.length)
-        if(+subStr<=+p){
-            count++
-        }
+    let array= [];
+    const numbered_p = Number(p);
+    for(i=0; i<=t.length-p.length; i++){
+      array.push(t.slice(i,i+p.length))  
     }
-    return count;
+    const numbered_array = array.map(Number);
+    const filtered_array = numbered_array.filter((n)=>n<=numbered_p);
+    const answer = filtered_array.length
+    return answer
 }
+
