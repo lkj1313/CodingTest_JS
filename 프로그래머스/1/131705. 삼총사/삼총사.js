@@ -1,17 +1,13 @@
-function solution(numbers) {
-  let count = 0;
-
-  // 세 개의 수를 선택하는 모든 조합을 확인
-  for (let i = 0; i < numbers.length - 2; i++) {
-    for (let j = i + 1; j < numbers.length - 1; j++) {
-      for (let k = j + 1; k < numbers.length; k++) {
-        // 세 수의 합이 0이 되는지 확인
-        if (numbers[i] + numbers[j] + numbers[k] === 0) {
-          count++;
+function solution(number) {
+     let count=0;
+    for(let i=0; i< number.length-2; i++){
+        for(let k=i+1; k<number.length-1; k++){
+            for(let j=k+1; j<number.length; j++){
+                if(number[i]+number[k]+number[j]===0){
+                    count++
+                }
+            }
         }
-      }
     }
-  }
-
-  return count;
+    return count
 }
