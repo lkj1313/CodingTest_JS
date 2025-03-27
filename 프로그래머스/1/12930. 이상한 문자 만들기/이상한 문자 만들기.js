@@ -1,14 +1,18 @@
 function solution(s) {
-  const array = s
-    .split(" ") // [try , hello , world]
-    .map((char, index) =>
-      char
-        .split("") // [t,r,y]
-        .map((char, index) =>
-          index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()
-        ) //[T,r,Y]
-        .join("") //TrY
-    )   // [TrY, ]
-    .join(" ");
-  return array;
+    var array = [];
+    const splited_s = s.split(' ')
+    for(let i=0; i<splited_s.length; i++){
+        let 짝홀수된 = splited_s[i].split('').map((w,k)=>{
+            if(k%2===0){
+               return w.toUpperCase();
+            } else{
+                return w.toLowerCase();
+            }
+        })
+        const 조인 = 짝홀수된.join('')
+        array.push(조인);
+        
+    }
+    let answer = array.join(' ')
+    return answer;
 }
