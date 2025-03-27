@@ -1,18 +1,13 @@
 function solution(sizes) {
-    maxWidth = 0;
-    maxHeigth = 0;
-   for (let [w,h] of sizes){
-       let [big,small] = w>h ? [w,h] : [h,w]
-       maxWidth = Math.max(maxWidth, big)
-       maxHeigth = Math.max(maxHeigth, small)
-       
-   }
-    
-    
-    
-    
-    return maxWidth*maxHeigth;
+    let maxWidth = 0;
+    let maxHeight = 0;
+    for( let [w,h] of sizes){
+      const width = Math.max(w,h)
+      const height = Math.min(w,h)
+      
+      maxWidth = Math.max(maxWidth, width);
+        maxHeight = Math.max(maxHeight, height);
+    }
+      
+    return maxWidth*maxHeight;
 }
-
-
-// 
