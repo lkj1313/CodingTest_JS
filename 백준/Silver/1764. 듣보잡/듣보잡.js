@@ -1,22 +1,20 @@
 const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = fs.readFileSync(filePath, "utf8").trim().split("\n");
 
-const [듣도넘, 보도넘] = input[0].split(" ").map(Number);
-const names = input.slice(1);
+const [N, M] = input[0].split(" ").map(Number);
 
-const 듣도들 = names.slice(0, 듣도넘);
-const 보도들 = names.slice(듣도넘);
+const map = new Map();
 
-const 듣도들Set = new Set(듣도들);
-const 듣보잡 = [];
-for (let name of 보도들) {
-  if (듣도들Set.has(name)) {
-    듣보잡.push(name);
+for (let i = 1; i <= N; i++) {
+  map.set(input[i], true);
+}
+let result = [];
+for (let i = N + 1; i <= M + N; i++) {
+  if (map.has(input[i])) {
+    result.push(input[i]);
   }
 }
-
-듣보잡.sort(); // [a,b,c]
-
-//출력
-console.log(듣보잡.length);
-console.log(듣보잡.join("\n"));
+result.sort();
+console.log(result.length);
+console.log(result.join("\n"));
