@@ -1,19 +1,17 @@
-///2108번 통계학
 const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = fs.readFileSync(filePath, "utf8").trim().split("\n");
 
-const [n, m] = input[0].split(" ").map(Number);
-const nPoketmos = input.slice(1, n + 1);
-const Mpoketmos = input.slice(n + 1);
+const [N, M] = input[0].split(" ").map(Number);
+
 const map = new Map();
-for (const name of nPoketmos) {
-  map.set(name, name);
-}
 let count = 0;
-for (const name of Mpoketmos) {
-  if (map.has(name)) {
-    count++;
-  }
+for (let i = 1; i <= N; i++) {
+  map.set(input[i], 0);
+}
+
+for (let i = N + 1; i <= M + N + 1; i++) {
+  if (map.has(input[i])) count++;
 }
 
 console.log(count);
