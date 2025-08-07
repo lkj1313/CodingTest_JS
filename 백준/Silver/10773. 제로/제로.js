@@ -1,19 +1,22 @@
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath, "utf8").trim().split("\n").map(Number);
+const input = fs
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map(Number);
+const N = input[0];
 
-const k = input[0];
+const arr = [];
 
-const stack = [];
-
-for (let i = 1; i <= k; i++) {
-  if (input[i] === 0) {
-    stack.pop();
+for (let i = 1; i <= N; i++) {
+  if (input[i] !== 0) {
+    arr.push(input[i]);
   } else {
-    stack.push(input[i]);
+    arr.pop();
   }
 }
 
-const sum = stack.reduce((a, b) => a + b, 0);
+const answer = arr.reduce((a, b) => a + b, 0);
 
-console.log(sum);
+console.log(answer);
