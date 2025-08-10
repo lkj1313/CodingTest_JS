@@ -1,13 +1,17 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
-const num = Number(input[0]);
-const pi = input[1].split(" ").map(Number);
-pi.sort((a, b) => a - b);
-let sum = 0;
-let total = 0;
-for (let i = 0; i < num; i++) {
-  sum += pi[i];
-  total += sum;
+
+const num = input[0];
+const arr = input[1].split(" ").map(Number);
+
+arr.sort((a, b) => a - b);
+
+let count = 0;
+const array = [];
+for (let i = 0; i < arr.length; i++) {
+  count += arr[i];
+  array.push(count);
 }
 
-console.log(total);
+const answer = array.reduce((a, b) => a + b, 0);
+console.log(answer);
