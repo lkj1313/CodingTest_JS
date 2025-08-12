@@ -1,9 +1,9 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-const answer = input
-  .split("")
-  .sort((a, b) => b - a)
-  .map(Number);
+const arr = input.split("").map(Number);
 
-console.log(answer.join(""));
+arr.sort((a, b) => b - a);
+
+const answer = arr.join("");
+console.log(answer);
