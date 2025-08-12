@@ -1,16 +1,26 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = Number(input[0]);
+const T = Number(input[0]);
+const points = [];
 
-// 2차원배열
-const points = input.slice(1).map((line) => {
-  const [x, y] = line.split(" ").map(Number);
-  return [x, y];
-});
+for (let i = 1; i <= T; i++) {
+  const [x, y] = input[i].split(" ").map(Number);
+  points.push([x, y]);
+}
 
 points.sort((a, b) => {
-  if (a[0] !== b[0]) return a[0] - b[0];
-  return a[1] - b[1];
+  if (a[0] === b[0]) {
+    return a[1] - b[1];
+  } else {
+    return a[0] - b[0];
+  }
 });
-console.log(points.map((p) => p.join(" ")).join("\n"));
+
+let result = "";
+
+for (const [x, y] of points) {
+  result += `${x} ${y}\n`;
+}
+
+console.log(result.trim());
