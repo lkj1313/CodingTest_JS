@@ -1,38 +1,31 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = Number(input[0]);
-const numbers = input.slice(1).map(Number);
+const N = +input[0];
+const arr = input.slice(1).map(Number).sort((a, b) => a - b);
 
-// 산술평균 (반올림, -0 방지)
-const sum = numbers.reduce((a, b) => a + b, 0);
-let avg = Math.round(sum / N);
-if (avg === -0) avg = 0;
+// 평균(반올림) + -0 방지
+let avg = Math.round(arr.reduce((a, b) => a + b, 0) / N);
+if (avg === 0) avg = 0;
 
-// 중앙값
-const sorted = [...numbers].sort((a, b) => a - b);
-const median = sorted[Math.floor(N / 2)];
+// 중앙값 (N은 홀수)
+const median = arr[Math.floor(N / 2)];
 
-// 최빈값
-const count = {};
-for (const num of numbers) {
-  count[num] = (count[num] || 0) + 1;
-}
+// 빈도수 집계
+const freq = new Map();
+for (const x of arr) freq.set(x, (freq.get(x) ?? 0) + 1);
 
-const freqArr = Object.entries(count)
-  .map(([k, v]) => [Number(k), v])
-  .sort((a, b) => {
-    if (b[1] === a[1]) return a[0] - b[0]; // 빈도 같으면 숫자 오름차순
-    return b[1] - a[1]; // 빈도순 내림차순
-  });
+// 최빈값 
+const maxFreq = Math.max(...freq.values());
+const candidates = [...freq.entries()]
+  .filter(([, c]) => c === maxFreq)
+  .map(([k]) => k)
+  .sort((a, b) => a - b);
 
-const mode =
-  freqArr.length > 1 && freqArr[0][1] === freqArr[1][1]
-    ? freqArr[1][0]
-    : freqArr[0][0];
+const mode = candidates.length >= 2 ? candidates[1] : candidates[0];
 
 // 범위
-const range = sorted[N - 1] - sorted[0];
+const range = arr[arr.length - 1] - arr[0];
 
 // 출력
 console.log(avg);
