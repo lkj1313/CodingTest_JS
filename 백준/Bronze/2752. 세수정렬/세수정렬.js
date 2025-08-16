@@ -1,8 +1,8 @@
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath, "utf8").trim();
-const number = input.split(" ").map(Number);
+const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-number.sort((a, b) => a - b);
+const arr = input.split(" ").map(Number);
 
-console.log(number.join(" "));
+arr.sort((a, b) => a - b);
+
+console.log(arr.join(" "));
