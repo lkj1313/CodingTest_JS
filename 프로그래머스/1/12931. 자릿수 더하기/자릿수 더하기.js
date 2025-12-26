@@ -1,8 +1,7 @@
 function solution(n)
 {
-   const splitedN = String(n).split('').map(n=>Number(n))
-   const sum = splitedN.reduce((a,b)=>a+b,0)
-   
-
-    return sum;
+ let str = String(n);
+ let arr = [...str].map(Number);
+ const answer = arr.reduce((a,b)=>a+b,0)
+ return answer
 }
