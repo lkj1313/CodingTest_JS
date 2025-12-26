@@ -1,10 +1,7 @@
 function solution(num) {
- var answer = '';
   if(num%2===0){
-      answer = 'Even'
+      return 'Even'
   } else {
-     answer = 'Odd'
+      return 'Odd'
   }
-  
-    return answer;
 }
