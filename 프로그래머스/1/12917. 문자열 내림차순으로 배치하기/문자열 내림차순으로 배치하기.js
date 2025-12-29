@@ -1,7 +1,6 @@
 function solution(s) {
-    var answer = '';
-    const arrayed = s.split('')
-    answer = arrayed.sort().reverse().join('')
-    
+   
+    const arr = s.split('').sort().reverse();
+    const answer = arr.join('')
     return answer;
 }
