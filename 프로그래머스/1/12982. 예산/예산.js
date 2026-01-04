@@ -1,13 +1,11 @@
 function solution(d, budget) {
+    d.sort((a,b)=>a-b)
     let sum = 0;
-    let answer = 0;
-    const sorted_array = d.sort((a,b)=>a - b)
-    for(let i = 0; i<sorted_array.length ;i++){
-        sum+= sorted_array[i]
-        if(sum>budget) break
-        answer++
-        
+    let number = 0;
+    for (const money of d){
+        if(sum+money>budget) break;
+        sum+=money
+        number++
     }
-    
-    return answer;
+    return number;
 }
