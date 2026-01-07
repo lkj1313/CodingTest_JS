@@ -1,11 +1,11 @@
 function solution(numbers) {
-    var answer = [];
-    for(let i =0; i<numbers.length; i++){
-        for(let k=i+1; k<numbers.length; k++){
-            answer.push(numbers[i]+numbers[k])
+    const temp = new Set();
+   
+    for(let i=0; i<numbers.length; i++){
+        for(let j=i+1; j<numbers.length; j++){
+            temp.add(numbers[i]+numbers[j])
         }
     }
-    const uniq = [...new Set(answer)]
-    const realAnswer = uniq.sort((a,b)=>a-b)
-    return realAnswer;
+    const answer = [...temp].sort((a,b)=>a-b)
+    return answer;
 }
