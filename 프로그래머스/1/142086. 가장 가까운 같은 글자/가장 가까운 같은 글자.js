@@ -1,14 +1,14 @@
 function solution(s) {
-    const lastSeen = {}; // 각 문자 마지막 등장 위치 저장
-    const result = [];
-    for(let i=0; i<s.length; i++){
-        const char = s[i];
-        if(lastSeen[char]===undefined){
-            result.push(-1)
+    var answer = [];
+    let lastPos = {};
+    for(let i =0; i<s.length ;i++){
+        const char = s[i]
+        if(lastPos[char]===undefined){
+            answer.push(-1)
         } else{
-            result.push(i - lastSeen[char])
+            answer.push(i-lastPos[char])
         }
-        lastSeen[char] = i
+        lastPos[char] = i              
     }
-    return result;
+    return answer
 }
