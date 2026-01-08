@@ -1,6 +1,12 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const array = input.map(Number).map((a) => a % 42);
-const result = [...new Set(array)];
-console.log(result.length);
+const arr = input.map(Number);
+
+const set = new Set();
+
+for (let i = 0; i < 10; i++) {
+  set.add(arr[i] % 42);
+}
+
+console.log(set.size);
