@@ -1,16 +1,23 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split(" ");
 
-let H = parseInt(input[0]);
-let M = parseInt(input[1]);
+let H = +input[0];
+let M = +input[1];
 
-if (M >= 45) {
-  M = M - 45;
+if (H > 0) {
+  if (M >= 45) {
+    M -= 45;
+  } else {
+    H -= 1;
+    M = M + 15;
+  }
 } else {
-  H = H - 1;
-  M = 60 + M - 45;
-  if (H < 0) {
+  // H가 0일 때
+  if (M >= 45) {
+    M -= 45;
+  } else {
     H = 23;
+    M = M + 15;
   }
 }
 
