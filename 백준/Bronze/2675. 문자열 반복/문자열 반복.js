@@ -1,15 +1,17 @@
 const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin", "utf-8").trim().split("\n");
+const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = +input[0]; // 테스트케이스개수
-
+const N = +input[0];
+const answer = [];
 for (let i = 1; i <= N; i++) {
-  const [R, S] = input[i].split(" "); // R : 반복횟수, S: 문자열
-  const repeatNum = +R;
-
-  let result = "";
-  for (let char of S) {
-    result += char.repeat(repeatNum); // 각 문자를 반복 횟수만큼 반복
+  const kk = [];
+  const arr = input[i].split(" ");
+  let n = +arr[0];
+  const word = arr[1];
+  for (let char of word) {
+    kk.push(char.repeat(n));
   }
-  console.log(result);
+  answer.push(kk.join(""));
 }
+
+console.log(answer.join("\n"));
