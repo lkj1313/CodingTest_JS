@@ -1,11 +1,14 @@
 const fs = require("fs");
-const input = fs.readFileSync("/dev/stdin", "utf-8").trim();
+const input = fs.readFileSync("/dev/stdin").toString().trim().split(" ");
 
-const [A, B] = input.split(" ");
+const [A, B] = input;
 
-const reverseA = A.split("").reverse().join("");
-const reverseB = B.split("").reverse().join("");
+const reverseAArr = A.split("").reverse();
+const reverseBArr = B.split("").reverse();
 
-const answer = +reverseA > +reverseB ? +reverseA : +reverseB;
+const reverseA = reverseAArr.join("");
+const reverseB = reverseBArr.join("");
+
+const answer = Math.max(reverseA, reverseB);
 
 console.log(answer);
