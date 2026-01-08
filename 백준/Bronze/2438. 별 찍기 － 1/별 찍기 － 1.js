@@ -1,11 +1,14 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-const T = +input;
-let result = "";
+const N = +input;
 
-for (i = 1; i <= T; i++) {
-  result += "*".repeat(i) + `\n`;
+const arr = [];
+
+for (let i = 1; i <= N; i++) {
+  arr.push("*".repeat(i));
 }
 
-console.log(result);
+const answer = arr.join("\n");
+
+console.log(answer);
