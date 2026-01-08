@@ -1,8 +1,6 @@
 const fs = require("fs");
-const input = +fs.readFileSync("/dev/stdin").toString().trim();
-let result = 0;
-for (let i = 1; i <= input; i++) {
-  result += i;
-}
+const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-console.log(result);
+const n = +input;
+
+console.log((n * (n + 1)) / 2);
