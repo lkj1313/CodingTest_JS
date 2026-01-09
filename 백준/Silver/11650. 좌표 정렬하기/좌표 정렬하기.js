@@ -1,26 +1,25 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const T = Number(input[0]);
-const points = [];
+const N = input[0];
 
-for (let i = 1; i <= T; i++) {
-  const [x, y] = input[i].split(" ").map(Number);
-  points.push([x, y]);
+const arr = []; //[][]
+
+for (let i = 1; i <= N; i++) {
+  const row = input[i].split(" ").map(Number);
+  arr.push(row);
 }
 
-points.sort((a, b) => {
-  if (a[0] === b[0]) {
-    return a[1] - b[1];
-  } else {
+arr.sort((a, b) => {
+  if (a[0] !== b[0]) {
     return a[0] - b[0];
-  }
+  } else return a[1] - b[1];
 });
 
-let result = "";
+let answer = "";
 
-for (const [x, y] of points) {
-  result += `${x} ${y}\n`;
-}
+arr.forEach((pos) => {
+  answer += `${pos[0]} ${pos[1]}\n`;
+});
 
-console.log(result.trim());
+console.log(answer);
