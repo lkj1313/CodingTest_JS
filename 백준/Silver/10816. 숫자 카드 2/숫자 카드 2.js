@@ -1,25 +1,27 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = Number(input[0]);
+const N = +input[0];
 
-const have = input[1].split(" ").map(Number);
-have.sort((a, b) => a - b);
+const Numbers = input[1].split(" ").map(Number);
 
-const M = Number(input[2]);
+const M = +input[2];
 
-const mustHave = input[3].split(" ").map(Number);
+const Ms = input[3].split(" ").map(Number);
 
-const freq = new Map();
-
-for (const v of have) {
-  if (freq.has(v)) {
-    freq.set(v, freq.get(v) + 1);
+const map = new Map();
+for (let i = 0; i < N; i++) {
+  if (!map.get(Numbers[i])) {
+    map.set(Numbers[i], 1);
   } else {
-    freq.set(v, 1);
+    map.set(Numbers[i], map.get(Numbers[i]) + 1);
   }
 }
 
-const res = mustHave.map((v) => freq.get(v) || 0);
+const answer = [];
 
-console.log(res.join(" "));
+for (let i = 0; i < M; i++) {
+  map.get(Ms[i]) ? answer.push(map.get(Ms[i])) : answer.push(0);
+}
+
+console.log(answer.join(" "));
