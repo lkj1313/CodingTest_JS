@@ -1,28 +1,34 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-let num = Number(input[0]);
-let arr = input[1]
-  .split(" ")
-  .map(Number)
-  .sort((a, b) => a - b);
-let budgets = Number(input[2]);
+const N = +input[0];
 
-let start = 0;
-let end = Math.max(...arr); // 괄호 [] 불필요
+const arr = input[1].split(" ").map(Number);
 
-let answer = 0;
+const budget = Number(input[2]);
 
-while (start <= end) {
-  let mid = Math.floor((start + end) / 2); // 상한선
-  let sum = arr.reduce((sum, budget) => sum + Math.min(budget, mid), 0);
+arr.sort((a, b) => a - b);
 
-  if (sum > budgets) {
-    end = mid - 1;
-  } else {
-    answer = mid;
-    start = mid + 1;
+function binarySearch() {
+  let start = 0;
+  let end = arr[N - 1];
+  let result = 0;
+  while (start <= end) {
+    let sum = 0;
+    let mid = Math.floor((start + end) / 2); // 상한액
+    for (let x of arr) {
+      sum += Math.min(mid, x);
+    }
+    if (sum === budget) {
+      return mid;
+    } else if (sum > budget) {
+      end = mid - 1;
+    } else if (sum < budget) {
+      start = mid + 1;
+      result = mid;
+    }
   }
+  return result;
 }
 
-console.log(answer);
+console.log(binarySearch());
