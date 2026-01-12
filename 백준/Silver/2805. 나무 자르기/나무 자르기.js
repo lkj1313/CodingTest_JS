@@ -1,21 +1,41 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const [N, M] = input[0].split(" ").map(Number); //[4 7 , 20 15 10 17]
-const trees = input[1].split(" ").map(Number);
-let start = 1;
-let end = Math.max(...trees);
-let result=0;
+const [N, M] = input[0].split(" ").map(Number);
 
-while (start <= end) {
-  const mid = Math.floor((start + end) / 2);
-  let sum = trees.reduce((a, tree) => a + Math.max(tree - mid, 0), 0);
-  if (sum >= M) {
-    result = mid;
-    start = mid + 1;
-  } else {
-    end = mid - 1;
+const trees = input[1]
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b);
+
+function binarySearch() {
+  let low = 0;
+  let high = Math.max(...trees);
+
+  let answer = 0;
+
+  while (low <= high) {
+    let total = 0;
+    let mid = Math.floor((low + high) / 2);
+    function totalFunc(arr, mid) {
+      // 짤린 나무들의 길이 합
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > mid) {
+          total += arr[i] - mid;
+        }
+      }
+    }
+    totalFunc(trees, mid);
+    if (total === M) {
+      return mid;
+    } else if (total > M) {
+      answer = mid;
+      low = mid + 1;
+    } else if (total < M) {
+      high = mid - 1;
+    }
   }
+  return answer;
 }
 
-console.log(result);
+console.log(binarySearch());
