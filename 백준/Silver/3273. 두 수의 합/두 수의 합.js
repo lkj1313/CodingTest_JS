@@ -1,18 +1,27 @@
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath, "utf8").trim().split("\n");
-const n = Number(input[0]);
-const sequence = input[1].split(" ").map(Number);
-const x = Number(input[2]);
+const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const sorted = sequence.sort((a, b) => a - b);
-let answer = 0;
-for (let i = 0; i < n; i++) {
-  for (let j = i + 1; j < n; j++) {
-    if (sorted[i] + sorted[j] === x) {
-      answer++;
-    }
+const n = +input[0];
+const arr = input[1]
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b);
+const x = +input[2];
+
+let left = 0;
+let right = n - 1;
+let count = 0;
+while (left < right) {
+  let sum = arr[left] + arr[right];
+  if (sum === x) {
+    count++;
+    left++;
+    right--;
+  } else if (sum > x) {
+    right--;
+  } else {
+    left++;
   }
 }
 
-console.log(answer);
+console.log(count);
