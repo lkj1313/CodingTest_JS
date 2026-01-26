@@ -1,9 +1,19 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-let X = Number(input);
-const stick = [64, 32, 16, 8, 4, 2, 1];
+const arr = [64];
+const X = +input;
 
-const count = X.toString(2).split("1").length - 1;
+while (arr.reduce((a, b) => a + b, 0) > X) {
+  arr.sort((a, b) => a - b);
+  const short = arr.shift();
+  const banShort = short / 2;
+  if (arr.reduce((a, b) => a + b, 0) + banShort >= X) {
+    arr.push(banShort);
+  } else {
+    arr.push(banShort);
+    arr.push(banShort);
+  }
+}
 
-console.log(count);
+console.log(arr.length);
