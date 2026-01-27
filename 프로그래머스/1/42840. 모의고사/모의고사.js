@@ -1,22 +1,26 @@
 function solution(answers) {
-    var answer = [];
-    const patterns =[
-                     [1, 2, 3, 4, 5],
-                     [2, 1, 2, 3, 2, 4, 2, 5],
-                     [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
-                    ]
-    const scores = [0,0,0]
-  answers.forEach((answer, i) => {
-  patterns.forEach((pattern, index) => {
-    if (answer === pattern[i % pattern.length]) {
-      scores[index]++;
+    const patterns = [
+        [1, 2, 3, 4, 5],
+        [2, 1, 2, 3, 2, 4, 2, 5],
+        [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
+    ];
+    const scores = [0,0,0];
+    for(let i =0; i<answers.length; i++){
+        for(let j=0; j<3; j++){
+            if(answers[i]===patterns[j][i % patterns[j].length]){
+                scores[j] = scores[j]+1;
+            }
+        }
     }
-  });
-});
-    const maxScore = Math.max(...scores);
-
+    const max = Math.max(...scores);
+    const answer = [];
+    scores.forEach((num,idx)=>{
+        if(num===max){
+            answer.push(idx+1);
+        }
+    })
+    answer.sort((a,b)=>a-b);
     
-    return scores.map((score,i)=>{
-        return score===maxScore ? i+1 : null
-    }).filter((v) => v !== null);
+    return answer;
+    
 }
