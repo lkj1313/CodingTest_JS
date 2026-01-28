@@ -1,29 +1,24 @@
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath, "utf8").trim().split("\n").map(Number);
+const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-function getDivisors(num) {
-  const divisors = new Set();
-  for (let i = 1; i <= Math.sqrt(num); i++) {
-    if (num % i === 0) {
-      divisors.add(i);
-      if (i !== num / i) divisors.add(num / i);
+input.pop();
+
+const arr = input.map(Number);
+const answer = [];
+for (let i = 0; i < arr.length; i++) {
+  const set = new Set([1]);
+  for (let j = 2; j <= Math.sqrt(arr[i]); j++) {
+    if (arr[i] % j === 0) {
+      set.add(j);
+      set.add(arr[i] / j);
     }
   }
-  divisors.delete(num); // 자기 자신은 제외
-  return [...divisors];
-}
+  const sortedDivisors = [...set].sort((a, b) => a - b);
+  const sum = sortedDivisors.reduce((a, b) => a + b, 0);
 
-for (let i = 0; i < input.length; i++) {
-  const number = input[i];
-  if (number === -1) break;
-
-  const divisors = getDivisors(number).sort((a, b) => a - b);
-  const sum = divisors.reduce((a, b) => a + b, 0);
-
-  if (sum === number) {
-    console.log(`${number} = ${divisors.join(" + ")}`);
+  if (sum === arr[i]) {
+    console.log(`${arr[i]} = ${sortedDivisors.join(" + ")}`);
   } else {
-    console.log(`${number} is NOT perfect.`);
+    console.log(`${arr[i]} is NOT perfect.`);
   }
 }
