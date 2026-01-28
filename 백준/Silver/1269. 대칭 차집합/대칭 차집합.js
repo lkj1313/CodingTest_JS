@@ -1,19 +1,27 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
-const [An, Bn] = input[0].split(" ").map(Number); // A원소의수, B원소의수
-const A = input[1].split(" ").map(Number); // A집합
-const B = input[2].split(" ").map(Number); // B집합
-const Amap = new Map();
 
-for (let i = 0; i < A.length; i++) {
-  Amap.set(A[i], true);
-}
+const [N, M] = input[0].split(" ").map(Number);
 
-let common = 0;
+const A = input[1].split(" ").map(Number);
+const B = input[2].split(" ").map(Number);
+
+const Aset = new Set(A);
+const Bset = new Set(B);
+
+let count1 = 0;
+let count2 = 0;
+
 for (let i = 0; i < B.length; i++) {
-  if (Amap.has(B[i])) {
-    common++;
+  if (Aset.has(B[i])) {
+    Aset.delete(B[i]);
+    
+  }
+}
+for (let i = 0; i < A.length; i++) {
+  if (Bset.has(A[i])) {
+    Bset.delete(A[i]);
   }
 }
 
-console.log(A.length + B.length - common * 2);
+console.log(Aset.size+ Bset.size);
