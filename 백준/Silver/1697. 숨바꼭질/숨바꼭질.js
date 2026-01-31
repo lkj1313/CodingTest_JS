@@ -1,55 +1,46 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim();
 
-const [N, K] = input.split(" ").map(Number);
-
 class Queue {
   constructor() {
     this.items = {};
     this.headIndex = 0;
     this.tailIndex = 0;
   }
-
-  enqueue(item) {
+  push(item) {
     this.items[this.tailIndex] = item;
     this.tailIndex++;
   }
-
-  dequeue() {
+  shift() {
     const item = this.items[this.headIndex];
     delete this.items[this.headIndex];
     this.headIndex++;
     return item;
   }
-
-  isEmpty() {
-    return this.tailIndex - this.headIndex === 0;
+  length() {
+    return this.tailIndex - this.headIndex;
   }
 }
+const [N, K] = input.split(" ").map(Number);
 
-function solve(N, K) {
-  if (N >= K) return N - K;
-
-  const maxPos = 100000 + 1;
-  const visited = new Array(maxPos).fill(-1);
-
-  const queue = new Queue();
-
-  queue.enqueue(N);
-  visited[N] = 0;
-
-  while (!queue.isEmpty()) {
-    const current = queue.dequeue();
-
-    if (current === K) return visited[current];
-
-    for (const next of [current - 1, current + 1, current * 2]) {
-      if (next >= 0 && next <= 100000 && visited[next] === -1) {
-        visited[next] = visited[current] + 1;
-        queue.enqueue(next);
+function bfs() {
+  if (N === K) return 0;
+  const visited = new Array(100001).fill(0);
+  const q = new Queue();
+  q.push(N);
+  visited[N] = 1;
+  while (q.length() > 0) {
+    const cur = q.shift();
+    if (cur === K) {
+      return visited[cur] - 1;
+    }
+    for (const next of [cur - 1, cur + 1, cur * 2]) {
+      if (next >= 0 && next <= 100000 && visited[next] === 0) {
+        q.push(next);
+        visited[next] = visited[cur] + 1;
+        visited;
       }
     }
   }
 }
-
-console.log(solve(N, K));
+console.log(bfs());
