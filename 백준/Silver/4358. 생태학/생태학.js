@@ -1,17 +1,18 @@
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath, "utf8").trim().split("\n");
+const arr = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-input.sort();
-let map = new Map();
-for (let i = 0; i < input.length; i++) {
-  if (map.has(input[i])) {
-    map.set(input[i], map.get(input[i]) + 1);
-  } else {
-    map.set(input[i], 1);
-  }
+const count = arr.length;
+arr.sort((a, b) => a.localeCompare(b));
+const map = new Map();
+
+for (let i = 0; i < count; i++) {
+  map.set(arr[i], (map.get(arr[i]) || 0) + 1);
 }
 
-for ([na, number] of map) {
-  console.log(`${na} ${((number / input.length) * 100).toFixed(4)}`);
+const sortedNames = [...map.keys()].sort();
+
+for (const name of sortedNames) {
+  const number = map.get(name);
+  const ratio = ((number / count) * 100).toFixed(4);
+  console.log(`${name} ${ratio}`);
 }
