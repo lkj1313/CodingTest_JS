@@ -1,12 +1,13 @@
 function solution(s){
-    let bal = 0;
-    for(let i =0; i<s.length; i++){
-        if(s[i]==='('){
-            bal++;
-        } else{
-            bal--;
-        }
-        if(bal<0) return false;
-    }
-    return bal ===0;
+   const arr = s.split('');
+    const stack = [];
+   for(let i=0; i<arr.length; i++){
+       if(arr[i]==='('){
+           stack.push(arr[i])
+       } else{
+           if(stack.length===0) return false;
+           else stack.pop();
+       }
+   }
+    return stack.length>0 ? false : true;
 }
