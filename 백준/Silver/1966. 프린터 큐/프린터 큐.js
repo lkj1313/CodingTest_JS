@@ -1,30 +1,27 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const T = +input[0];
-let line = 1;
-const result = [];
-for (let t = 0; t < T; t++) {
-  const [N, M] = input[line].split(" ").map(Number);
-  const priorities = input[line + 1].split(" ").map(Number);
-  line += 2;
+let line = 0;
+const T = +input[line++];
 
-  // 큐: [{index, priority}]
-  let queue = priorities.map((p, i) => ({ idx: i, priority: p }));
-  count = 0;
-  while (queue.length) {
+for (let i = 0; i < T; i++) {
+  const [N, M] = input[line++].split(" ").map(Number);
+  const priorities = input[line++].split(" ").map(Number);
+
+  const queue = priorities.map((p, i) => [p, i]);
+  let count = 0;
+  while (queue.length > 0) {
+    const maxPriority = Math.max(...queue.map((v) => v[0]));
     const current = queue.shift();
-    const hasHigher = queue.some((doc) => doc.priority > current.priority);
-    if (hasHigher) {
-      queue.push(current); // 뒤로보냄
+
+    if (current[0] < maxPriority) {
+      queue.push(current);
     } else {
       count++;
-      if (current.idx === M) {
-        result.push(count);
+      if (current[1] === M) {
+        console.log(count);
         break;
       }
     }
   }
 }
-
-console.log(result.join("\n"));
