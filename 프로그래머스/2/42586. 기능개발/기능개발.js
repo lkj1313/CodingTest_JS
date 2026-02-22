@@ -1,19 +1,25 @@
 function solution(progresses, speeds) {
-    var answer = [];
+    const remains = [];
+    const answer = [];
+    for(let i=0; i<progresses.length; i++){
+        const remain = Math.ceil((100-progresses[i])/speeds[i]);
+        remains.push(remain);
+    }
     
-    while(progresses.length>0){
-        let count = 0;
-        for(let i =0; i<progresses.length; i++){
-            progresses[i] = progresses[i] + speeds[i];
+    
+    while(remains.length){
+        const bottom = remains.shift();
+        let count = 1;
+        while(remains.length){
+            if(bottom>=remains[0]){
+                count++;
+                remains.shift();
+            } else{
+                break;
+            }
         }
-        while(progresses[0]>=100){
-            progresses.shift();
-            speeds.shift();
-            count++
-        }
-        if(count>0) answer.push(count)
-         
-     } 
-   
+        answer.push(count)
+    }
+    
     return answer;
 }
