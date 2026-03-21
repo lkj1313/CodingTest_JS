@@ -1,10 +1,10 @@
 # [level 1] x만큼 간격이 있는 n개의 숫자 - 12954 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12954) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12954?language=java) 
 
 ### 성능 요약
 
-메모리: 33.6 MB, 시간: 0.21 ms
+메모리: 89 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 12월 26일 18:33:47
+2026년 03월 21일 17:34:39
 
 ### 문제 설명
 
