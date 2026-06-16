@@ -1,4 +1,7 @@
 function solution(num1, num2) {
-    var answer = 0;
-    return num1===num2 ? 1 : -1;
+    if(num1===num2){
+        return 1
+    } else{
+        return -1;
+    }
 }
