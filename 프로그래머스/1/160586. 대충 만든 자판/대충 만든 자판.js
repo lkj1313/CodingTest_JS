@@ -1,28 +1,32 @@
 function solution(keymap, targets) {
-    var answer = [];
-    const keymaps = keymap.map((w)=>w.split(''));
-    const arr = targets.map((w)=>w.split(''))
-    for(let i=0; i<targets.length; i++){
-        let count1 = 0;
-        for(let j=0; j<arr[i].length; j++){
-            const target = arr[i][j];
-            let count2 = Infinity;
-            for(let k=0; k<keymaps.length; k++){
-                const index = keymaps[k].findIndex((s)=>s===target)
-                if(index!==-1){
-                    count2 = Math.min(count2, index+1);
+    const map = new Map();
+    for(let i=0; i<keymap.length; i++){
+        const splited = keymap[i].split('');
+        for(let k=0; k<splited.length; k++){
+            const a = splited[k];
+            const get = map.get(a);
+            if(!get){
+                map.set(a,k+1);
+            } else{
+                if(get>k){
+                    map.set(a,k+1);
                 }
             }
-            if(count2===Infinity){
-                count1=-1;
-                break;
+        }
+    }
+    const answer = [];
+    for(let i=0; i<targets.length; i++){
+        let count = 0;
+        const splited = targets[i].split('');
+        for(const a of splited){
+            if(map.get(a)){
+                count+= map.get(a);
             } else{
-                count1+= count2;
+                count = -1;
+                break;
             }
         }
-        answer.push(count1)
+        answer.push(count);
     }
-    
-    
     return answer;
 }
