@@ -1,23 +1,25 @@
 function solution(n, lost, reserve) {
-    const realReserve = reserve.filter((r)=>!lost.includes(r)).sort((a,b)=>a-b)
-    const realLost = lost.filter((l)=>!reserve.includes(l)).sort((a,b)=>a-b)
-    let answer = n - realLost.length;
+    const clothes = new Array(n).fill(1);
     
-    for(let i =0; i<realLost.length; i++){
-        const lostNumber = realLost[i];
-        const frontReser = realReserve.findIndex((n)=>n===(lostNumber-1))
-        if(frontReser!==-1){
-            answer+=1;
-            realReserve.splice(frontReser,1)
-            continue;
-        }
-        const nextReser = realReserve.findIndex((n)=>n===(lostNumber+1))
-        if(nextReser!==-1){
-            answer+=1;
-            realReserve.splice(nextReser,1)
-            continue;
-        }
+    for(const l of lost){
+        clothes[l-1] = clothes[l-1] - 1;
         
     }
-    return answer;
+    for(const r of reserve){
+        clothes[r-1] = clothes[r-1] + 1;
+    }
+    
+    for(let i=0;  i<clothes.length; i++){
+        if(clothes[i]===0){
+            if(i>0&& clothes[i-1]===2 ){
+                clothes[i]++;
+                clothes[i-1]--;
+            } else if(i<n-1&& clothes[i+1]===2){
+                clothes[i]++;
+                clothes[i+1]--;
+            }
+        }
+    }
+    return clothes.filter(c=>c>=1).length;
+    
 }
