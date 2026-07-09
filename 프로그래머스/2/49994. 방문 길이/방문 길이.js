@@ -2,25 +2,36 @@ function solution(dirs) {
     let x = 0;
     let y = 0;
     const set = new Set();
-    for(const move of dirs){
-        let nx = x
-        let ny = y
+    
+    for(const dir of dirs){
+        let nx = x;
+        let ny = y;
         
-        if(move==='U') ny++;
-        if(move==='D') ny--;
-        if(move==='R') nx++;
-        if(move==='L') nx--;
-        
+        if(dir==='U'){
+            ny++;
+        } 
+        if(dir==='D'){
+            ny--;
+        }
+        if(dir==='R'){
+            nx++;
+        }
+        if(dir==='L'){
+            nx--;
+        }
         if(nx>5 || nx<-5 || ny>5 || ny<-5) continue;
         
-        set.add(`${x},${y} -> ${nx},${ny}`)
-        set.add(`${nx},${ny} -> ${x},${y}`)
+        const road1 = `${x},${y}-${nx},${ny}`
+        const road2 = `${nx},${ny}-${x},${y}`
+        
+        set.add(road1);
+        set.add(road2);
         
         x=nx;
-        y=ny
-        
+        y=ny;
         
     }
     
     return set.size/2
+    
 }
